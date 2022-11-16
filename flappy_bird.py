@@ -31,7 +31,8 @@ class FlappyBird(object):
     bird_hitmask = [pixels_alpha(image).astype(bool) for image in bird_images]
     pipe_hitmask = [pixels_alpha(image).astype(bool) for image in pipe_images]
 
-    fps = 200
+    fps = 300
+    # fps = 10
     pipe_gap_size = 100
     pipe_velocity_x = -4
 
@@ -91,8 +92,9 @@ class FlappyBird(object):
                 min_x2 = cropped_bbox.x - pipe_boxes[i].x
                 min_y2 = cropped_bbox.y - pipe_boxes[i].y
                 if np.any(self.bird_hitmask[self.bird_index][min_x1:min_x1 + cropped_bbox.width,
-                       min_y1:min_y1 + cropped_bbox.height] * self.pipe_hitmask[i][min_x2:min_x2 + cropped_bbox.width,
-                                                              min_y2:min_y2 + cropped_bbox.height]):
+                          min_y1:min_y1 + cropped_bbox.height] * self.pipe_hitmask[i][
+                                                                 min_x2:min_x2 + cropped_bbox.width,
+                                                                 min_y2:min_y2 + cropped_bbox.height]):
                     return True
         return False
 
@@ -153,4 +155,10 @@ class FlappyBird(object):
         image = array3d(display.get_surface())
         display.update()
         self.fps_clock.tick(self.fps)
-        return image, reward, terminal
+        # return image, reward, terminal
+
+        for pipe in self.pipes:
+            if self.bird_x < pipe["x_upper"] + self.pipe_width:
+                return np.array([self.bird_y, pipe["x_upper"], pipe["y_upper"], pipe["x_lower"],
+                                 pipe["y_lower"]]), reward, terminal
+        return np.array([self.bird_y, 0, 0, 0, 0]), reward, terminal

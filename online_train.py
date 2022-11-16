@@ -23,7 +23,6 @@ def train():
 
         if terminal:
             agent.determine_observe(reward_sum)
-            agent.writer.add_scalar("Reward/reward_sum", reward_sum, agent.learn_counter)
             print("reward_sum: ", reward_sum)
             env = FlappyBird()
             image, reward, terminal = env.next_frame(action=0)
