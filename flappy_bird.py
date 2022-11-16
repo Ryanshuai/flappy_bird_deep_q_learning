@@ -31,7 +31,7 @@ class FlappyBird(object):
     bird_hitmask = [pixels_alpha(image).astype(bool) for image in bird_images]
     pipe_hitmask = [pixels_alpha(image).astype(bool) for image in pipe_images]
 
-    fps = 200
+    fps = 300
     pipe_gap_size = 100
     pipe_velocity_x = -4
 
