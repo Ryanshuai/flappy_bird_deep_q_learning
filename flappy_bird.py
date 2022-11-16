@@ -31,7 +31,7 @@ class FlappyBird(object):
     bird_hitmask = [pixels_alpha(image).astype(bool) for image in bird_images]
     pipe_hitmask = [pixels_alpha(image).astype(bool) for image in pipe_images]
 
-    fps = 100
+    fps = 300
     pipe_gap_size = 100
     pipe_velocity_x = -4
 
@@ -110,8 +110,8 @@ class FlappyBird(object):
         for pipe in self.pipes:
             pipe_center_x = pipe["x_upper"] + self.pipe_width / 2
             if pipe_center_x < bird_center_x < pipe_center_x + 5:
-                self.score += 1
-                reward = 1
+                self.score += 5
+                reward = 5
                 break
 
         # Update index and iteration
