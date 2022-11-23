@@ -98,23 +98,22 @@ class Memory:
 
 
 class DQN_Agent:
-    def __init__(self, action_size, train=True):
+    def __init__(self, action_size, train=True, pth=""):
         self.action_size = action_size
         self.memory = Memory(action_size, load_folder="memory")
 
         self.batch_size = 32
         self.gamma = 0.99
 
-        load_path = "pths/3_4.pth"
-        self.model = NeuralNet(load_path).to(DEVICE)
-        self.model_fixed = NeuralNet(load_path).to(DEVICE)
-        self.writer = SummaryWriter("runs/exp1")
+        self.model = NeuralNet(pth).to(DEVICE)
+        self.model_fixed = NeuralNet(pth).to(DEVICE)
+        self.writer = SummaryWriter("tensorboard/exp2")
 
         self.loss_function = nn.MSELoss()
-        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=1e-3)
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=2e-3)
 
         if train:
-            self.random_action_probability = 0.3
+            self.random_action_probability = 0.01
             self.min_random_action_probability = 0.01
             self.random_action_probability_decay = 0.99_999
         else:
@@ -172,7 +171,7 @@ class DQN_Agent:
             self.memory.to_disk("memory")
 
         if self.learn_counter % 10_000 == 0:
-            torch.save(self.model.state_dict(), "pths" + os.sep + f"1_{self.learn_counter // 10_000}" + ".pth")
+            torch.save(self.model.state_dict(), "pths" + os.sep + f"4_{self.learn_counter // 10_000}" + ".pth")
 
         self.writer.add_scalar('Loss', loss.item(), self.learn_counter)
         self.writer.add_scalar('Random Action Probability', self.random_action_probability, self.learn_counter)

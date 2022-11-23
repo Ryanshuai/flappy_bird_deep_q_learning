@@ -3,7 +3,7 @@ from dqn_agent import DQN_Agent
 
 
 def train():
-    agent = DQN_Agent(action_size=2, pth="pths/4_6.pth")
+    agent = DQN_Agent(action_size=2, train=False, pth="pths/4_6.pth")
 
     env = FlappyBird()
     image, reward, terminal = env.next_frame(action=0)
@@ -13,9 +13,6 @@ def train():
         action = agent.act(image)
         next_image, reward, terminal = env.next_frame(action)
         reward_sum += reward
-        agent.observe(image, action, reward, next_image, terminal)
-        agent.learn()
-
         image = next_image
 
         if terminal:
