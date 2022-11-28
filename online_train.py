@@ -3,7 +3,7 @@ from dqn_agent import DQN_Agent
 
 
 def train():
-    agent = DQN_Agent(action_size=2, pth="pths/4_6.pth")
+    agent = DQN_Agent(action_size=2, pth="pths/4_23.pth")
 
     env = FlappyBird()
     image, reward, terminal = env.next_frame(action=0)
@@ -27,4 +27,16 @@ def train():
 
 
 if __name__ == '__main__':
-    train()
+
+
+
+
+    import torch, torchvision
+
+    # print(torch.__version__)
+    print(torchvision.__version__)
+
+    import sys
+
+    print(sys.version)
+    # train()

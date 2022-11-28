@@ -10,7 +10,7 @@ import numpy as np
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
+# Neural Network for Deep Q Learning
 class NeuralNet(nn.Module):
     def __init__(self, load_path=None):
         super().__init__()
@@ -59,6 +59,7 @@ class NeuralNet(nn.Module):
             print("No model parameter found. Starting from scratch.")
 
 
+# The memory class for experience replay
 class Memory:
     def __init__(self, action_size, load_folder=None):
         self.action_size = action_size
@@ -97,6 +98,7 @@ class Memory:
             print("No memory found. Starting from scratch.")
 
 
+# The agent class
 class DQN_Agent:
     def __init__(self, action_size, train=True, pth=""):
         self.action_size = action_size

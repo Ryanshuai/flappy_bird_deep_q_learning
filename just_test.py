@@ -2,8 +2,8 @@ from flappy_bird import FlappyBird
 from dqn_agent import DQN_Agent
 
 
-def train():
-    agent = DQN_Agent(action_size=2, train=False, pth="pths/4_6.pth")
+def test():
+    agent = DQN_Agent(action_size=2, train=False, pth="pths/4_24.pth")
 
     env = FlappyBird()
     image, reward, terminal = env.next_frame(action=0)
@@ -24,4 +24,4 @@ def train():
 
 
 if __name__ == '__main__':
-    train()
+    test()
